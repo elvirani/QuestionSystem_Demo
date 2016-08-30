@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yanni.questionsystem_demo.TestMainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/btn_basic_degree_bg">
+
+        <ImageView
+            android:id="@+id/test_img_drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_drawer"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类练习"
+            android:textSize="22sp"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/test_img_drawer"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/test_img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_white_24dp"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>
