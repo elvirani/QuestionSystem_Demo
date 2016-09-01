@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/content_linear">
+
+    <LinearLayout
+        android:id="@+id/ttt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:clickable="true"
+            android:gravity="center"
+            android:id="@+id/itemcontent_tv_above"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上一题"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/answer_footicon01"/>
+        <TextView
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/itemcontent_tv_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收藏"
+            android:drawableTop="@drawable/collection"/>
+        <TextView
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/itemcontent_tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一题"
+            android:drawableTop="@drawable/answer_footicon04"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/ttt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_item_bg_press"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/list_item_bg_normal"
+            >
+
+            <TextView
+                android:id="@+id/itemcontent_tvtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/list_item_bg_press"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/list_item_bg_normal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="答案"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/itemcontent_tvcontent"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</RelativeLayout>

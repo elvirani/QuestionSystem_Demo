@@ -3,7 +3,9 @@ package com.example.yanni.questionsystem_demo;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,10 @@ public class LoginActivity extends AppCompatActivity {
     @ViewInject(value = R.id.login_pass)
     private EditText et_pass;
     Dialog loadingDialog;
+//    SharedPreferences.Editor editor;
+//    public static SharedPreferences preferences;
+
+    //    String usernameInfo,passwordInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void HttpLogin(String name, String pass) {
-        RequestParams params = new RequestParams("http://115.29.136.118:8080/web-question/app/login");
+        final RequestParams params = new RequestParams("http://115.29.136.118:8080/web-question/app/login");
         params.addBodyParameter("username", name);
         params.addBodyParameter("password", pass);
 
@@ -80,14 +86,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-//                    JSONObject jsonObject1 = jsonObject.getJSONObject("user");
-//                    String username = jsonObject1.getString("username");
-//                    System.out.println(username + "================");
-
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("user");
+                    String nickname = jsonObject1.getString("nickname");
+//                    usernameInfo = jsonObject1.getString("username");
+//                    passwordInfo = jsonObject1.getString("password");
                     String success = jsonObject.getString("success");
+
                     if (success.equals("true")) {
                         loadingDialog.cancel();
-                        startActivity(new Intent(LoginActivity.this, TestMainActivity.class));
+                        Intent it = new Intent(LoginActivity.this, TestMainActivity.class);
+                        it.putExtra("nickname", nickname);
+                        startActivity(it);
+                        LoginActivity.this.finish();
                     } else {
                         loadingDialog.cancel();
                         Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
@@ -110,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public Dialog createLoadingDialog() {
 

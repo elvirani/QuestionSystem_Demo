@@ -16,15 +16,16 @@ import java.util.TimerTask;
 
 @ContentView(value = R.layout.activity_welcome)
 public class WelcomeActivity extends AppCompatActivity {
-@ViewInject(value = R.id.welcome_linear)
-private LinearLayout layout;
+    @ViewInject(value = R.id.welcome_linear)
+    private LinearLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_welcome);
         x.view().inject(this);
 
-        AlphaAnimation animation = new AlphaAnimation(0.0f,1.0f);
+        AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setDuration(3000);
         layout.setAnimation(animation);
 
@@ -32,13 +33,11 @@ private LinearLayout layout;
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-                startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
                 finish();
 
             }
-        },3000);
-
+        }, 3000);
 
 
     }

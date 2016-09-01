@@ -3,6 +3,8 @@
     package="com.example.yanni.questionsystem_demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name="application.MyApplication"
         android:allowBackup="true"
@@ -10,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,19 +21,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GuideActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".WelcomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TestMainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ForgetPassActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".GuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgetPassActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".SearchSubjectActivity" />
+        <activity android:name=".MyAchievementActivity" />
+        <activity android:name=".MyCollectionActivity" />
+        <activity android:name=".GridItemActivity" />
+        <activity android:name=".ItemContentActivity"></activity>
     </application>
 
 </manifest>

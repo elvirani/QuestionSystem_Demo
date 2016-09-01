@@ -6,38 +6,38 @@
     tools:context="com.example.yanni.questionsystem_demo.GuideActivity">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_viewpager">
+        android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="470dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/img_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-android:src="@drawable/page_indicator_focused"
-            />
+            android:src="@drawable/page_indicator_focused" />
 
         <ImageView
-            android:layout_marginLeft="15dp"
             android:id="@+id/img_02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/page_indicator_unfocused"/>
-        <ImageView
             android:layout_marginLeft="15dp"
+            android:src="@drawable/page_indicator_unfocused" />
+
+        <ImageView
             android:id="@+id/img_03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/page_indicator_unfocused"
-            />
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/page_indicator_unfocused" />
 
     </LinearLayout>
 </FrameLayout>
