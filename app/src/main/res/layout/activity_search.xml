@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffecedef"
+    android:orientation="vertical"
+    android:id="@+id/search_linear"
+    tools:context="com.example.yanni.questionsystem_demo.SearchActivity">
+
+    <include layout="@layout/toolbarback" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46.0dip"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_weight="1"
+            android:background="@drawable/input_search_bg"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:inputType="text"
+            android:hint="搜索试题名称"
+            android:singleLine="true"
+            android:textColor="#ff242e38"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:gravity="center"
+            android:text="搜索"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+    <!-- /titlebar -->
+
+    <ListView
+        android:id="@+id/search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent" >
+    </ListView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_tvall"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

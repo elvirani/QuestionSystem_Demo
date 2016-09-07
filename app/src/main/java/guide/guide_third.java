@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.yanni.questionsystem_demo.GuideActivity;
 import com.example.yanni.questionsystem_demo.LoginActivity;
 import com.example.yanni.questionsystem_demo.R;
 
@@ -31,6 +32,7 @@ public class guide_third extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         startActivity(new Intent(getContext(), LoginActivity.class));
-
+//       带有fragment 的activity  关闭当前页面
+        getActivity().finish();
     }
 }

@@ -1,7 +1,10 @@
 package com.example.yanni.questionsystem_demo;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,7 +16,8 @@ import org.xutils.x;
 
 @ContentView(value = R.layout.activity_forget_pass)
 public class ForgetPassActivity extends AppCompatActivity {
-
+    @ViewInject(value = R.id.mtoolbarback)
+    private Toolbar toolbar;
     @ViewInject(value = R.id.forget_username)
     private EditText et_username;
     @ViewInject(value = R.id.forget_pass)
@@ -26,8 +30,14 @@ public class ForgetPassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_forget_pass);
         x.view().inject(this);
+
+
+        //  设置标题栏
+        toolbar.setTitle(R.string.tv_forget_pwd);
+        toolbar.setBackgroundResource(R.color.actionbar_bg);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
 
         String username = getIntent().getStringExtra("username");
         et_username.setText(username);
@@ -48,7 +58,18 @@ public class ForgetPassActivity extends AppCompatActivity {
                 if (!pass.equals(passagain)) {
                     Toast.makeText(ForgetPassActivity.this, "两次输入的密码不相同", Toast.LENGTH_SHORT).show();
                 }
+//    1.没有URL 无法存储   2.可以添加ShareSDK 短信验证功能
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+            }break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

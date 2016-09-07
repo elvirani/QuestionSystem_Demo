@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
 
 // 判断app 是否是第一次打开运行  SharedPreferences存储数据
 
@@ -33,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,WelcomeActivity.class));
 
         }
+//        startActivity(new Intent(this,TestMainActivity.class));
         finish();
+
 
     }
 

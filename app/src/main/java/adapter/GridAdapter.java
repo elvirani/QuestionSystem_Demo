@@ -17,6 +17,7 @@ import org.xutils.x;
 import java.util.List;
 
 import pojo.TypeKnowledge;
+import utils.SharedPreferencesUtils;
 
 /**
  * Created by yanni on 2016/8/30.
@@ -24,7 +25,8 @@ import pojo.TypeKnowledge;
 public class GridAdapter extends BaseAdapter {
     Context context;
     List<TypeKnowledge> list;
-LayoutInflater inflater;
+    LayoutInflater inflater;
+
     public GridAdapter(Context context, List<TypeKnowledge> list) {
         this.context = context;
         this.list = list;
@@ -51,7 +53,7 @@ LayoutInflater inflater;
         ViewHolder holder = null;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.gridview_item,null);
+            view = inflater.inflate(R.layout.gridview_item, null);
             holder.textView = (TextView) view.findViewById(R.id.grid_title);
             holder.img = (ImageView) view.findViewById(R.id.grid_icon);
             view.setTag(holder);
@@ -59,12 +61,16 @@ LayoutInflater inflater;
             holder = (ViewHolder) view.getTag();
         }
         holder.textView.setText(list.get(i).getName());
-        getPicture(i,holder);
+        if (SharedPreferencesUtils.getImgState(context)) {
+            getPicture(i, holder);
+        } else {
+            holder.img.setVisibility(View.GONE);
+        }
         return view;
     }
 
     private void getPicture(int i, ViewHolder holder) {
-        String url = "http://115.29.136.118/web-question/"+list.get(i).getIcon();
+        String url = "http://115.29.136.118/web-question/" + list.get(i).getIcon();
         x.image().bind(holder.img, url);
     }
 

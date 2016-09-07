@@ -6,14 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.yanni.questionsystem_demo.GridItemActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbarback"/>
 
-    <ListView
-        android:id="@+id/griditem_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="1dp"
-        android:divider="@color/list_item_bg_press">
-
-    </ListView>
+    <include layout="@layout/griditem_refresh"/>
 </LinearLayout>

@@ -1,14 +1,13 @@
 package com.example.yanni.questionsystem_demo;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,11 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -30,42 +26,60 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import pojo.User;
+import utils.SharedPreferencesUtils;
+import view.ShowLoadingDialog;
 
 @ContentView(value = R.layout.activity_login)
 public class LoginActivity extends AppCompatActivity {
 
+    @ViewInject(value = R.id.mtoolbar)
+    private Toolbar toolbar;
     @ViewInject(value = R.id.login_username)
     private EditText et_username;
     @ViewInject(value = R.id.login_pass)
     private EditText et_pass;
     Dialog loadingDialog;
-//    SharedPreferences.Editor editor;
-//    public static SharedPreferences preferences;
 
-    //    String usernameInfo,passwordInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
         x.view().inject(this);
+
+//  设置标题栏
+        toolbar.setTitle(R.string.btn_login);
+        toolbar.setBackgroundResource(R.color.actionbar_bg);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
+
+////  判断是否自动登录
+//        if (SharedPreferencesUtils.judgeState(this)) {
+//            User info = SharedPreferencesUtils.getInfo(this);
+//            HttpAutoLogin(info.getUsername(),info.getPassword());
+////            Intent it = new Intent(this, TestMainActivity.class);
+////            it.putExtra("nickname", SharedPreferencesUtils.getInfo(this).getNickname());
+////            startActivity(it);
+////            this.finish();
+//        }
     }
 
     @Event(value = {R.id.login_register, R.id.login_btn, R.id.login_forget_pwd}, type = View.OnClickListener.class)
     private void setClick(View v) {
         switch (v.getId()) {
+//  注册
             case R.id.login_register: {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
             break;
+//  登录
             case R.id.login_btn: {
                 String name = et_username.getText().toString();
                 String pass = et_pass.getText().toString();
-                createLoadingDialog();
+                ShowLoadingDialog.createLoadingDialog(LoginActivity.this);
                 HttpLogin(name, pass);
             }
             break;
+//  忘记密码
             case R.id.login_forget_pwd: {
                 String name = et_username.getText().toString();
                 Intent it = new Intent(LoginActivity.this, ForgetPassActivity.class);
@@ -76,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // 发送用户名+密码 实现登录操作
     private void HttpLogin(String name, String pass) {
         final RequestParams params = new RequestParams("http://115.29.136.118:8080/web-question/app/login");
         params.addBodyParameter("username", name);
@@ -88,18 +103,20 @@ public class LoginActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject jsonObject1 = jsonObject.getJSONObject("user");
                     String nickname = jsonObject1.getString("nickname");
-//                    usernameInfo = jsonObject1.getString("username");
-//                    passwordInfo = jsonObject1.getString("password");
+                    String username = jsonObject1.getString("username");
+                    String password = jsonObject1.getString("password");
                     String success = jsonObject.getString("success");
 
                     if (success.equals("true")) {
-                        loadingDialog.cancel();
+                        ShowLoadingDialog.loadingDialog.cancel();
+                        SharedPreferencesUtils.saveNamePass(new User(username, password, nickname), LoginActivity.this);
                         Intent it = new Intent(LoginActivity.this, TestMainActivity.class);
                         it.putExtra("nickname", nickname);
                         startActivity(it);
+
                         LoginActivity.this.finish();
                     } else {
-                        loadingDialog.cancel();
+                        ShowLoadingDialog.loadingDialog.cancel();
                         Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -109,6 +126,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("onerror" + "============================");
+                ShowLoadingDialog.loadingDialog.cancel();
+                ex.printStackTrace();
             }
 
             @Override
@@ -121,31 +141,70 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void HttpAutoLogin(String name, String pass) {
+        final RequestParams params = new RequestParams("http://115.29.136.118:8080/web-question/app/login");
+        params.addBodyParameter("username", name);
+        params.addBodyParameter("password", pass);
 
-    public Dialog createLoadingDialog() {
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("user");
+                    String nickname = jsonObject1.getString("nickname");
+                    String username = jsonObject1.getString("username");
+                    String password = jsonObject1.getString("password");
+                    String success = jsonObject.getString("success");
 
-        LayoutInflater inflate = LayoutInflater.from(LoginActivity.this);
-        View view = inflate.inflate(R.layout.pub_dialog_loading, null);
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.loading_linear);
-        ImageView img = (ImageView) view.findViewById(R.id.loading_img);
+                    if (success.equals("true")) {
 
-        Animation animation = AnimationUtils.loadAnimation(
-                LoginActivity.this, R.anim.load_animation);
-        img.startAnimation(animation);
-        loadingDialog = new Dialog(LoginActivity.this, R.style.loading_dialog);
+                        SharedPreferencesUtils.saveNamePass(new User(username, password, nickname), LoginActivity.this);
+                        Intent it = new Intent(LoginActivity.this, TestMainActivity.class);
+                        it.putExtra("nickname", nickname);
+                        startActivity(it);
 
-        loadingDialog.setCancelable(false);// 不可以用“返回键”取消
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT,
-                LinearLayout.LayoutParams.FILL_PARENT));// 设置布局
-        loadingDialog.show();
+                        LoginActivity.this.finish();
+                    } else {
 
-        return loadingDialog;
+                        Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("onerror" + "============================");
+
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
     }
 
+    private long exitTime = 0;
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

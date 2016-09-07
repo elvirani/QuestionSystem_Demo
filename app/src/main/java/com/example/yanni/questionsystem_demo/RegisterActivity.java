@@ -1,7 +1,10 @@
 package com.example.yanni.questionsystem_demo;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,6 +21,8 @@ import org.xutils.x;
 @ContentView(value = R.layout.activity_register)
 public class RegisterActivity extends AppCompatActivity {
 
+    @ViewInject(value = R.id.mtoolbarback)
+    private Toolbar toolbar;
     @ViewInject(value = R.id.register_username)
     private EditText et_username;
     @ViewInject(value = R.id.register_pass)
@@ -30,10 +35,16 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_register);
         x.view().inject(this);
+
+        //  设置标题栏
+        toolbar.setTitle(R.string.btn_registe);
+        toolbar.setBackgroundResource(R.color.actionbar_bg);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
     }
 
+// 点完注册按钮   也无法向服务器存储数据。
     @Event(value = R.id.register_btn, type = View.OnClickListener.class)
     private void setClick(View view) {
         switch (view.getId()) {
@@ -56,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } else {
                             Toast.makeText(RegisterActivity.this, "用户名为字母！", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 }
@@ -102,5 +112,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFinished() {
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+            }break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

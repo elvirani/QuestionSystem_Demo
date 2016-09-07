@@ -1,5 +1,6 @@
 package com.example.yanni.questionsystem_demo;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class GuideActivity extends AppCompatActivity {
     private ImageView img_02;
     @ViewInject(value = R.id.img_03)
     private ImageView img_03;
+
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -52,13 +52,13 @@ public class GridItemAdapter extends BaseAdapter {
             holder  = (ViewHolder) view.getTag();
         }
         holder.tv_content.setText(list.get(position).getContent());
-        if (list.get(position).getTypeId()==1){
+        if (list.get(position).getTypeid()==1){
             holder.tv_type.setText("单选题");
-        }else if (list.get(position).getTypeId()==2){
+        }else if (list.get(position).getTypeid()==2){
             holder.tv_type.setText("多选题");
-        }else if (list.get(position).getTypeId()==3){
+        }else if (list.get(position).getTypeid()==3){
             holder.tv_type.setText("判断题");
-        }else if (list.get(position).getTypeId()==4){
+        }else if (list.get(position).getTypeid()==4){
             holder.tv_type.setText("简答题");
         }
         return view;

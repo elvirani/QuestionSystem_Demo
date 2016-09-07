@@ -2,28 +2,17 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:q="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout"
+    android:background="@color/list_item_bg_normal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:clickable="true"
+    >
+    <view.MyViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#ffffff">
-        <GridView
-            android:scrollbarStyle="outsideOverlay"
-            android:stretchMode="columnWidth"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/test_gridview"
-            android:numColumns="2"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            ></GridView>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/drawerlayout_viewpager">
 
+    </view.MyViewPager>
 
     <LinearLayout
         android:id="@+id/ll"
@@ -34,12 +23,15 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+
+            android:clickable="true"
             android:id="@+id/test_rela"
             android:layout_width="@dimen/navdrawer_width"
             android:layout_height="144dp"
             android:background="@drawable/home_nav_title" >
 
             <LinearLayout
+                android:clickable="true"
                 android:id="@+id/test_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,6 +39,8 @@
                 android:orientation="vertical" >
 
                 <view.CircleImageView
+
+                    android:clickable="true"
                     android:id="@+id/test_head_img"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
@@ -56,6 +50,7 @@
                     q:border_width="2dp" />
 
                 <TextView
+                    android:clickable="true"
                     android:id="@+id/test_tv_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,6 +76,8 @@
         </ListView>
 
         <RelativeLayout
+
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
